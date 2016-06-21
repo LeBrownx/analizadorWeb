@@ -39,7 +39,7 @@ function inicio() {
       console.log("Termino la Ejecucion del Programa");
     }
   }else{
-    alert("Se esperaba Inicio");
+    alert("ERROR EN LA SINTAXIS");
   }
 }
 
@@ -50,17 +50,31 @@ function begin() {
   if (splitString[contadorAuxiliar]=="Begin") {
     console.log(splitString);
     contadorAuxiliar++;
-    for (var i = 0; i < splitString.length; i++) {
+    for (var i = contadorAuxiliar; i < splitString.length; i++) {
+
+      console.log("I "+splitString[i]+" "+i);
       switch (splitString[i]) {
-        // case "If":
-        //   condicion();
-          // break;
+        //  case "If":
+        //    condicion();
+          //  break;
         case "Write":
           write();
+          i=contadorAuxiliar;
           break;
         case "Read":
           read();
+          break;
+        case "While":
+          whileF();
+          break;
+        case "For":
+          forF()
+          break;
         default:
+          // contadorAuxiliar++;
+
+          console.log("No se reconoce el token"+splitString[contadorAuxiliar]);
+
           break;
 
       }
@@ -72,6 +86,8 @@ function begin() {
     if (splitString[contadorAuxiliar]=="End") {
     contadorAuxiliar++;
     }
+  }else {
+    alert("ERROR EN LA SINTAXIS");
   }
 }
 
@@ -106,6 +122,23 @@ function condicion() {
   contadorAuxiliar++;
   if (splitString[contadorAuxiliar]="If") {
     console.log("Condicion "+splitString[contadorAuxiliar]);
+    for (var j = 0; j < splitString.length; j++) {
+      switch (splitString[j]) {
+        //  case "If":
+        //    condicion();
+        //    break;
+        case "Write":
+          write();
+          break;
+        case "Read":
+          read();
+        default:
+          contadorAuxiliar++;
+          console.log("No se reconoce el token");
+          break;
+
+      }
+    }
     if (splitString[contadorAuxiliar]=="FinIf") {
       console.log("Finalizar Condicion "+splitString[contadorAuxiliar]);
       contadorAuxiliar++;
@@ -135,9 +168,58 @@ function read() {
 }
 
 function whileF() {
+  if(splitString[contadorAuxiliar]=="While"){
+    console.log("Inicia While");
+    contadorAuxiliar++;
+    contadorAuxiliar++;
+    for (var i = 0; i < splitString.length; i++) {
+      switch (splitString[i]) {
+        // case "If":
+        //   condicion();
+          // break;
+        case "Write":
+          write();
+          break;
+        case "Read":
+          read();
+        case "For":
+          forF()
+          break;
+
+        default:
+          break;
+
+      }
+    }
+
+    if(splitString[contadorAuxiliar]=="FinWhile"){
+      contadorAuxiliar;
+    }
+  }
 
 }
 
 function forF() {
+if (splitString[contadorAuxiliar]=="For") {
+  console.log("Inicia For");
+  contadorAuxiliar=contadorAuxiliar+3;
+  for (var i = 0; i < splitString.length; i++) {
+    switch (splitString[i]) {
+      case "Write":
+        write();
+        break;
+      case "Read":
+        read();
+      case "While":
+        whileF();
+        break;
+      default:
+        break;
 
+    }
+}
+if (splitString[contadorAuxiliar]=="FinFor") {
+  contadorAuxiliar++;
+}
+}
 }
